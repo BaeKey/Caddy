@@ -1,2 +1,2 @@
 # Caddy
-make Caddy v2 for NaïveProxy
+build Caddy with modules
