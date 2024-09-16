@@ -15,7 +15,7 @@ jobs:
           go-version: 'stable'
 
       - name: Install xcaddy
-        run: go install github.com/caddy-dns/dnspod@latest
+        run: go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
 
       - name: Build Caddy
         run: |
