@@ -19,8 +19,7 @@ jobs:
 
       - name: Build Caddy
         run: |
-          ~/go/bin/xcaddy build --with github.com/caddy-dns/dnspod
-
+          ~/go/bin/xcaddy build --with github.com/caddy-dns/dnspod --with github.com/porech/caddy-maxmind-geolocation
 
       - name: Upload Caddy Binary
         uses: softprops/action-gh-release@v1
