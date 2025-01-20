@@ -23,8 +23,10 @@ jobs:
         run: go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
 
       - name: Build Caddy
+        env:
+          GOARCH: ${{ matrix.arch }}
         run: |
-          ~/go/bin/xcaddy build --with github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@naive
+          ~/go/bin/xcaddy build --output ./caddy-linux-${{ matrix.arch }} --with github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@naive 
 
       - name: Upload Caddy Binaries
         uses: softprops/action-gh-release@v1
