@@ -8,6 +8,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        include:
+          - goarch: amd64
+            goos: linux
+          - goarch: arm64
+            goos: linux
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
