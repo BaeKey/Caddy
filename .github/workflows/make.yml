@@ -27,6 +27,7 @@ jobs:
       - name: Build Caddy
         run: |
           ~/go/bin/xcaddy build --with github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@naive
+          mv caddy caddy_${{ matrix.goos }}_{{ matrix.goarch }}
 
       - name: Upload Caddy Binary
         uses: softprops/action-gh-release@v1
