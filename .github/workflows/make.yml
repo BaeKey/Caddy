@@ -19,7 +19,8 @@ jobs:
 
       - name: Build Caddy
         run: |
-          ~/go/bin/xcaddy build --with github.com/porech/caddy-maxmind-geolocation
+          ~/go/bin/xcaddy build --with github.com/porech/caddy-maxmind-geolocation --with github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@naive
+
 
       - name: Upload Caddy Binary
         uses: softprops/action-gh-release@v1
