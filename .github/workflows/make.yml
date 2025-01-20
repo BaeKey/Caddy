@@ -7,6 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [amd64, arm64]
     
     steps:
       - uses: actions/checkout@v4
@@ -15,17 +18,18 @@ jobs:
           go-version: 'stable'
 
       - name: Install xcaddy
+        env:
+          GOARCH: ${{ matrix.arch }}
         run: go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
 
       - name: Build Caddy
         run: |
           ~/go/bin/xcaddy build --with github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@naive
 
-      - name: Upload Caddy Binary
+      - name: Upload Caddy Binaries
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: latest
-          files: |
-            ./caddy
+          files: ./caddy-linux-${{ matrix.arch }}
