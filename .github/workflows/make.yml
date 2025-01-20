@@ -20,7 +20,9 @@ jobs:
       - name: Install xcaddy
         env:
           GOARCH: ${{ matrix.arch }}
-        run: go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
+        run: |
+          go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
+          echo "$HOME/go/bin" >> $GITHUB_PATH
 
       - name: Build Caddy
         env:
