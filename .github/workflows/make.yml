@@ -7,14 +7,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        include:
-          - goarch: amd64
-            goos: linux
+        goos: [linux, windows, darwin] # 需要打包的系统
+        goarch: [amd64, arm64] # 需要打包的架构
+        exclude: # 排除某些平台和架构
           - goarch: arm64
-            goos: linux
+            goos: windows
 
     steps:
       - uses: actions/checkout@v4
@@ -29,7 +28,6 @@ jobs:
         run: |
           ~/go/bin/xcaddy build --with github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@naive
 
-
       - name: Upload Caddy Binary
         uses: softprops/action-gh-release@v1
         env:
@@ -37,4 +35,4 @@ jobs:
         with:
           tag_name: latest
           files: |
-            ./caddy
+            caddy_${{ matrix.goos }}_{{ matrix.goarch }}
