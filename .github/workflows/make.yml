@@ -7,29 +7,34 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     strategy:
       matrix:
-        arch: [amd64, arm64]
-    
+        arch: [amd64, arm64]  # 支持的架构
+
     steps:
+      # 检出代码
       - uses: actions/checkout@v4
+
+      # 设置 Go 环境
       - uses: actions/setup-go@v5
         with:
           go-version: 'stable'
 
+      # 安装 xcaddy，默认安装到 ~/go/bin
       - name: Install xcaddy
-        env:
-          GOARCH: ${{ matrix.arch }}
-        run: |
-          go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
-          echo "$HOME/go/bin" >> $GITHUB_PATH
+        run: go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
 
+      # 构建 Caddy 二进制文件
       - name: Build Caddy
+        run: |
+          ~/go/bin/xcaddy build \
+            --output ./caddy-linux-${{ matrix.arch }} \
+            --with github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@naive
         env:
           GOARCH: ${{ matrix.arch }}
-        run: |
-          ~/go/bin/xcaddy build --output ./caddy-linux-${{ matrix.arch }} --with github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@naive 
 
+      # 上传 Caddy 二进制到 Release
       - name: Upload Caddy Binaries
         uses: softprops/action-gh-release@v1
         env:
