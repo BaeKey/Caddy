@@ -30,7 +30,7 @@ jobs:
         run: |
           ~/go/bin/xcaddy build \
             --output ./caddy-linux-${{ matrix.arch }} \
-            --with github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@naive
+            --with  github.com/mholt/caddy-webdav
         env:
           GOARCH: ${{ matrix.arch }}
 
