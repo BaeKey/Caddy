@@ -30,8 +30,9 @@ jobs:
         run: |
           ~/go/bin/xcaddy build \
             --output ./caddy-linux-${{ matrix.arch }} \
-            --with github.com/abiosoft/caddy-exec \
-            --with github.com/porech/caddy-maxmind-geolocation
+            --with github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@naive
+#            --with github.com/abiosoft/caddy-exec \
+#            --with github.com/porech/caddy-maxmind-geolocation
         env:
           GOARCH: ${{ matrix.arch }}
 
