@@ -29,11 +29,13 @@ jobs:
             #--with github.com/abiosoft/caddy-exec \
             #--with github.com/porech/caddy-maxmind-geolocation \
             #--with github.com/caddy-dns/tencentcloud
+            #--with github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@naive
       - name: Build Caddy
         run: |
           ~/go/bin/xcaddy build \
             --output ./caddy-linux-${{ matrix.arch }} \
-            --with github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@naive
+            --with github.com/caddy-dns/cloudflare
+            
 
         env:
           GOARCH: ${{ matrix.arch }}
