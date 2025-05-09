@@ -26,14 +26,15 @@ jobs:
         run: go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
 
       # 构建 Caddy 二进制文件
-      #            --with github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@naive
+            #--with github.com/abiosoft/caddy-exec \
+            #--with github.com/porech/caddy-maxmind-geolocation \
+            #--with github.com/caddy-dns/tencentcloud
       - name: Build Caddy
         run: |
           ~/go/bin/xcaddy build \
             --output ./caddy-linux-${{ matrix.arch }} \
-            --with github.com/abiosoft/caddy-exec \
-            --with github.com/porech/caddy-maxmind-geolocation \
-            --with github.com/caddy-dns/tencentcloud
+            --with github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@naive
+
         env:
           GOARCH: ${{ matrix.arch }}
 
