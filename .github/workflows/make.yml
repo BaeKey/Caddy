@@ -1,8 +1,7 @@
 name: Build and Upload Caddy Binary
 
 on:
-  watch:
-    types: [started]
+  workflow_dispatch:
 
 jobs:
   build:
