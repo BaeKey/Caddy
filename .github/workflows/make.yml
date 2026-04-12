@@ -23,7 +23,7 @@ jobs:
       # 安装 xcaddy，默认安装到 ~/go/bin
       - name: Install xcaddy
         run: go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
-             --with github.com/caddy-dns/cloudflare
+
       # 构建 Caddy 二进制文件
             #--with github.com/abiosoft/caddy-exec \
             #--with github.com/porech/caddy-maxmind-geolocation \
